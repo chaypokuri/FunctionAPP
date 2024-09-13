@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "example" {
   name                     = "linuxfunctionappsa"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
+  account_tier             = "Premium"
   account_replication_type = "LRS"
 }
 
@@ -24,7 +24,7 @@ resource "azurerm_service_plan" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   os_type             = "Linux"
-  sku_name            = "Y1"
+  sku_name            = "P1"
 }
 
 resource "azurerm_linux_function_app" "example" {

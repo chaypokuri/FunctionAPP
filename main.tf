@@ -45,20 +45,16 @@ resource "azurerm_logic_app_standard" "example" {
   location                 = azurerm_resource_group.example.location
   storage_account_name     = azurerm_storage_account.example.name
   storage_account_access_key = azurerm_storage_account.example.primary_access_key
-  app_service_plan_id      = azurerm_service_plan.example.id  # Corrected attribute name
+  app_service_plan_id      = azurerm_service_plan.example.id
 
   identity {
     type = "SystemAssigned"
   }
 
-  sku {
-    name = "Standard"  # Corrected SKU usage
-  }
+  sku_name = "Standard"  
 
   depends_on = [
     azurerm_service_plan.example,
     azurerm_storage_account.example
   ]
-
-  # Intentionally omit virtual_network_subnet_id to trigger policy failure
 }

@@ -1,9 +1,9 @@
 provider "azurerm" {
   features {}
-subscription_id = "c2bd123a-183f-43d5-bf41-c725494e595a"
-tenant_id = "3180c264-31bc-4113-8f50-b7393a40457b"
-client_id = "1a046c02-8c39-4f1d-b30b-93f41a9c6b15"
-client_secret = "kUz8Q~qwom0J-MM5ZNqexXyUOguygMj5QELdhdl5"
+  subscription_id = "c2bd123a-183f-43d5-bf41-c725494e595a"
+  tenant_id = "3180c264-31bc-4113-8f50-b7393a40457b"
+  client_id = "1a046c02-8c39-4f1d-b30b-93f41a9c6b15"
+  client_secret = "kUz8Q~qwom0J-MM5ZNqexXyUOguygMj5QELdhdl5"
 }
 
 resource "azurerm_resource_group" "example" {
@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "example" {
   name                     = "linuxfunctionappsa"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
-  account_tier             = "Premium"
+  account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
@@ -24,7 +24,7 @@ resource "azurerm_service_plan" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   os_type             = "Linux"
-  sku_name            = "P1"
+  sku_name            = "Y1"
 }
 
 resource "azurerm_linux_function_app" "example" {
@@ -37,4 +37,13 @@ resource "azurerm_linux_function_app" "example" {
   service_plan_id            = azurerm_service_plan.example.id
 
   site_config {}
+}
+
+resource "azurerm_logic_app_standard" "example" {
+  name                = "example-logic-app"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  sku_name            = "Standard"
+  
+  # Intentionally omit virtual_network_subnet_id to trigger policy failure
 }

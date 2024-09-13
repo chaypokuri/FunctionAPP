@@ -40,10 +40,21 @@ resource "azurerm_linux_function_app" "example" {
 }
 
 resource "azurerm_logic_app_standard" "example" {
-  name                = "example-logic-app"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  sku_name            = "Standard"
-  
+  name                     = "example-logic-app"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  storage_account_name     = azurerm_storage_account.example.name
+  storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  service_plan_id          = azurerm_service_plan.example.id
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  depends_on = [
+    azurerm_service_plan.example,
+    azurerm_storage_account.example
+  ]
+
   # Intentionally omit virtual_network_subnet_id to trigger policy failure
 }

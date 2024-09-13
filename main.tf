@@ -51,7 +51,9 @@ resource "azurerm_logic_app_standard" "example" {
     type = "SystemAssigned"
   }
 
-  sku_name = "Standard"  # Corrected attribute usage
+  sku {
+    name = "Standard"  # Corrected SKU usage
+  }
 
   depends_on = [
     azurerm_service_plan.example,

@@ -12,8 +12,8 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_storage_account" "example" {
-  # Name is too short to be valid
-  name                     = "ab"  # Must be between 3 and 24 characters
+  # Invalid due to invalid characters and length
+  name                     = "inv@lidname!"  # Invalid name (contains special characters)
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
@@ -33,10 +33,10 @@ resource "azurerm_linux_function_app" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
 
-  # Use an invalid service plan ID format
-  storage_account_name       = "storageaccount123"  # Valid name, but used with an invalid key
-  storage_account_access_key = "short"  # Obviously invalid key (too short)
-  service_plan_id            = "not-a-valid-service-plan-id"  # Invalid format
+  # Invalid values to simulate failures
+  storage_account_name       = "validnamebutinvalidkey"  # Valid name but incorrect key
+  storage_account_access_key = "this_key_is_too_short"  # Clearly invalid key (too short)
+  service_plan_id            = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/invalid-group/providers/Microsoft.Web/serverFarms/invalid-service-plan-id"  # Incorrect format and content
 
   site_config {}
 }

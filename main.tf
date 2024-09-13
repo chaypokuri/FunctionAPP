@@ -49,10 +49,8 @@ resource "azurerm_logic_app_standard" "example" {
 
   identity {
     type = "SystemAssigned"
+    sku_name = "Standard" 
   }
-
-  sku_name = "Standard"  
-
   depends_on = [
     azurerm_service_plan.example,
     azurerm_storage_account.example

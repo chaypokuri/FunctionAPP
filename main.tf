@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "linuxfunctionappsa"
+  name                     = "inv@lidname!!"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
@@ -32,10 +32,10 @@ resource "azurerm_linux_function_app" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
 
-  # Introducing invalid values to cause a failure
-  storage_account_name       = "invalid-storage-account-name"
-  storage_account_access_key = "invalid-access-key"
-  service_plan_id            = "invalid-service-plan-id"
+  # Invalid values to simulate failures
+  storage_account_name       = "inv@lidname!!"  # Invalid name format
+  storage_account_access_key = "thisisnotavalidkey"  # Obviously invalid key
+  service_plan_id            = "/subscriptions/c2bd123a-183f-43d5-bf41-c725494e595a/resourceGroups/example-resources/providers/Microsoft.Web/serverFarms/invalid-service-plan"  # Invalid service plan ID
 
   site_config {}
 }

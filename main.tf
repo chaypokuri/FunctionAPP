@@ -49,10 +49,10 @@ resource "azurerm_subnet" "this" {
   }
 }
 
-resource "azurerm_service_plan" "example" {
-  name                = "example-app-service-plan"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+resource "azurerm_service_plan" "this" {
+  name                = "this-app-service-plan"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
   os_type             = "Linux"
   sku_name            = "Y1"
 }

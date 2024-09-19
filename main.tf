@@ -1,7 +1,10 @@
 provider "azurerm" {
   features {}
+  subscription_id = "c2bd123a-183f-43d5-bf41-c725494e595a"
+  tenant_id       = "3180c264-31bc-4113-8f50-b7393a40457b"
+  client_id       = "1a046c02-8c39-4f1d-b30b-93f41a9c6b15"
+  client_secret   = "kUz8Q~qwom0J-MM5ZNqexXyUOguygMj5QELdhdl5"
 }
-
 terraform {
   required_providers {
     azurerm = {
@@ -46,15 +49,12 @@ resource "azurerm_subnet" "this" {
   }
 }
 
-resource "azurerm_app_service_plan" "this" {
-  name                = "azure-functions-test-service-plan"
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
-  sku {
-    tier     = "WorkflowStandard"
-    size     = "WS1"
-    capacity = 1
-  }
+resource "azurerm_service_plan" "example" {
+  name                = "example-app-service-plan"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  os_type             = "Linux"
+  sku_name            = "Y1"
 }
 
 resource "azurerm_linux_function_app" "this" {
@@ -64,18 +64,6 @@ resource "azurerm_linux_function_app" "this" {
   service_plan_id            = azurerm_app_service_plan.this.id
   storage_account_name       = azurerm_storage_account.this.name
   storage_account_access_key = azurerm_storage_account.this.primary_access_key
-
-  app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "1"
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-
   virtual_network_subnet_id = azurerm_subnet.this.id
-}
-
-output "function_app_default_hostname" {
-  value = azurerm_linux_function_app.this.default_hostname
+  site_config {}
 }

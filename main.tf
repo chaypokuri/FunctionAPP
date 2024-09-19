@@ -51,7 +51,7 @@ resource "azurerm_app_service_plan" "this" {
   }
 }
 
-  resource "azurerm_Function_app_standard" "this" {
+  resource "azurerm_function_app_standard" "this" {
   name                       = "test-azure-Fapp"
   location                   = azurerm_resource_group.this.location
   resource_group_name        = azurerm_resource_group.this.name

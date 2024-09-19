@@ -40,7 +40,7 @@ resource "azurerm_subnet" "this" {
     }
   }
 }
-resource "azurerm_service_plan" "this" {
+resource "azurerm_app_service_plan" "this" {
   name                = "azure-functions-test-service-plan"
   resource_group_name = "azurerm_resource_group.this.name"
   location            = "azurerm_resource_group.this.location"
@@ -55,8 +55,13 @@ resource "azurerm_service_plan" "this" {
   name                       = "test-azure-fapp"
   location                   = azurerm_resource_group.this.location
   resource_group_name        = azurerm_resource_group.this.name
-  app_service_plan_id        = azurerm_app_service_plan.this.id
+  service_plan_id            = azurerm_service_plan.this.id
   storage_account_name       = azurerm_storage_account.this.name
   storage_account_access_key = azurerm_storage_account.this.primary_access_key
+site_config {
+    application_stack {
+      linux_fx_version = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:3.0"
+    }
+  }
   
 }

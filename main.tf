@@ -50,7 +50,6 @@ resource "azurerm_app_service_plan" "this" {
   name                = "azure-functions-test-service-plan"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
-  os_type             = "Linux"
   sku {
     tier     = "WorkflowStandard"
     size     = "WS1"

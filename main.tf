@@ -65,12 +65,6 @@ resource "azurerm_linux_function_app" "this" {
   storage_account_name       = azurerm_storage_account.this.name
   storage_account_access_key = azurerm_storage_account.this.primary_access_key
 
-  site_config {
-    application_stack {
-      linux_fx_version = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:3.0"
-    }
-  }
-
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE" = "1"
   }

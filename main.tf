@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 resource "azurerm_storage_account" "this" {
-  name                     = "Functionapptestsa"
+  name                     = "functionapptestsa"
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"
@@ -40,7 +40,7 @@ resource "azurerm_subnet" "this" {
     }
   }
 }
-resource "azurerm_linux_function_app" "this" {
+resource "azurerm_app_service_plan" "this" {
   name                = "azure-functions-test-service-plan"
   resource_group_name = "azurerm_resource_group.this.name"
   location            = "azurerm_resource_group.this.location"

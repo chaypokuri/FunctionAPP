@@ -45,7 +45,6 @@ resource "azurerm_app_service_plan" "this" {
   resource_group_name = "azurerm_resource_group.this.name"
   location            = "azurerm_resource_group.this.location"
   kind                = "elastic"
-  os_type             = "Linux"
   sku {
     tier = "WorkflowStandard"
     size = "WS1"
